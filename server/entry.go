@@ -5,5 +5,6 @@ import (
 )
 
 func InitiateServerEntry() {
+	logging.SetInfoLogLevel()
 	logging.Info("Initializing server entry")
 }
