@@ -6,8 +6,8 @@
 [MIT License |](https://github.com/karthiklsarma/cedar-engine/blob/main/LICENSE)
 
 ## To build project:
-  From Root Directory:
-    * Execute 
-        > go build
-    * Execute 
-        > go run main.go
+From Root Directory:
+* Execute 
+> go build
+* Execute 
+> go run main.go
