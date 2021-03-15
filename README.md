@@ -21,5 +21,5 @@ From Root Directory:
 > docker build . -t cedar:latest
 ### To run
 * Execute
-> docker run -d -p 8080:8080 <IMAGE ID from previous step>
+> docker run -d -p 8080:8080 `<IMAGE ID from previous step>`
 
