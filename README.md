@@ -17,7 +17,7 @@ From Root Directory:
 ## To build and run project on docker container:
 From Root Directory:
 ### To build
-*Execute
+* Execute
 > docker build . -t cedar:latest
 ### To run
 * Execute
