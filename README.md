@@ -8,6 +8,6 @@
 ## To build project:
 From Root Directory:
 * Execute 
-> go build
+> go build -o /bin/cedar
 * Execute 
-> go run main.go
+> /bin/cedar
