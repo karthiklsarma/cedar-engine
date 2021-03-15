@@ -35,4 +35,4 @@ COPY --from=builder /bin/cedar /app/bin/cedar
 # Use an unprivileged user
 USER appuser:appuser
 
-CMD ["/app/bin/cedar"]
+ENTRYPOINT ["/app/bin/cedar"]
