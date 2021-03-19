@@ -14,7 +14,7 @@ From Root Directory:
 * Execute 
 > /bin/cedar
 
-## To build and run project on docker container:
+## To build and run project on docker container on local:
 From Root Directory:
 ### To build
 * Execute
@@ -22,4 +22,9 @@ From Root Directory:
 ### To run
 * Execute
 > docker run -d -p 8080:8080 `<IMAGE ID from previous step>`
+
+## To deploy on azure
+* Execute deploy cedar [script](https://github.com/karthiklsarma/cedar-deploy/blob/main/cedar-deploy.sh)
+* Once the Kubernetes cluster and Container registry is deployed, Execute
+> az acr build --registry cedarcr --image cedar-engine:v1 .
 
