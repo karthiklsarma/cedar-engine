@@ -9,7 +9,7 @@
 From Root Directory:
 ### To build
 * Execute 
-> go build -o /bin/cedar
+> go build -o ./bin/cedar
 ### To run
 * Execute 
 > /bin/cedar
