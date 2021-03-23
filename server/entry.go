@@ -1,9 +1,8 @@
 package server
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
+	gqlhandler "github.com/graphql-go/graphql-go-handler"
 	"github.com/karthiklsarma/cedar-engine/m/logging"
 )
 
@@ -22,9 +21,16 @@ func setupRouting(router *gin.Engine) {
 		})
 	})
 
-	router.POST("/login/:user", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": fmt.Sprintf("Hello %s", c.Param("user")),
-		})
+	router.POST("/graphql", graphqlHandler())
+}
+
+func graphqlHandler() gin.HandlerFunc {
+	gqlSchema := StartGraphQlServer()
+	gqHandler := gqlhandler.New(&gqlhandler.Config{
+		Schema: &gqlSchema,
+		Pretty: true,
 	})
+	return func(c *gin.Context) {
+		gqHandler.ContextHandler(c, c.Writer, c.Request)
+	}
 }
