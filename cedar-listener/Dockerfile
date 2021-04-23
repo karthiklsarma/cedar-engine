@@ -1,5 +1,6 @@
 # STEP 1 build stage
 FROM golang:alpine AS builder
+RUN apk --no-cache add ca-certificates
 
 # Create appuser.
 ENV USER=appuser
@@ -23,7 +24,7 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /bin/cedar
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /bin/cedar-listener
 
 # Final stage
 FROM scratch
@@ -31,8 +32,10 @@ FROM scratch
 # Import the user and group files from the builder
 COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /etc/group /etc/group
-COPY --from=builder /bin/cedar /app/bin/cedar
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=builder /bin/cedar-listener /app/bin/cedar-listener
+
 # Use an unprivileged user
 USER appuser:appuser
 
-ENTRYPOINT ["/app/bin/cedar"]
+ENTRYPOINT ["/app/bin/cedar-listener"]

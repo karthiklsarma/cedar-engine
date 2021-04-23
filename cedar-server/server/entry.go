@@ -3,7 +3,7 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 	gqlhandler "github.com/graphql-go/graphql-go-handler"
-	"github.com/karthiklsarma/cedar-engine/m/logging"
+	"github.com/karthiklsarma/cedar-server/m/logging"
 )
 
 func InitiateServerEntry() {
@@ -21,7 +21,9 @@ func setupRouting(router *gin.Engine) {
 		})
 	})
 
-	router.POST("/graphql", graphqlHandler())
+	handlerFunc := graphqlHandler()
+	router.POST("/graphql", handlerFunc)
+	router.OPTIONS("/graphql", handlerFunc)
 }
 
 func graphqlHandler() gin.HandlerFunc {
@@ -31,6 +33,11 @@ func graphqlHandler() gin.HandlerFunc {
 		Pretty: true,
 	})
 	return func(c *gin.Context) {
+		c.Writer.Header().Add("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Add("Access-Control-Max-Age", "10000")
+		c.Writer.Header().Add("Access-Control-Allow-Methods", "GET,HEAD,POST,PUT,PATCH,DELETE,OPTIONS")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Origin, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+		c.Writer.Header().Set("Access-Control-Expose-Headers", "Content-Length")
 		gqHandler.ContextHandler(c, c.Writer, c.Request)
 	}
 }

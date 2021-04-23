@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/karthiklsarma/cedar-engine/m/server"
+	"github.com/karthiklsarma/cedar-server/m/server"
 )
 
 func main() {
